@@ -189,11 +189,13 @@ public class RxPermissions {
             PublishSubject<Permission> subject = mSubjects.get(permission);
             // Create a new subject if not exists
             if (subject == null) {
-                unrequestedPermissions.add(permission);
                 subject = PublishSubject.create();
                 mSubjects.put(permission, subject);
             }
 
+            if (!unrequestedPermissions.contains(permission)) {
+                unrequestedPermissions.add(permission);
+            }
             list.add(subject);
         }
 
